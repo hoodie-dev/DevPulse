@@ -1,0 +1,6 @@
+<Solution>
+  <Project Path="DevPulse.API/DevPulse.API.csproj" />
+  <Project Path="DevPulse.Application/DevPulse.Application.csproj" />
+  <Project Path="DevPulse.Domain/DevPulse.Domain.csproj" />
+  <Project Path="DevPulse.Infrastructure/DevPulse.Infrastructure.csproj" />
+</Solution>
