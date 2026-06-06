@@ -20,6 +20,16 @@ builder.Services.AddMediatR(cfg =>
     cfg.RegisterServicesFromAssembly(typeof(DevPulse.Application.Projects.Commands.CreateProjectCommand).Assembly);
 });
 
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("AllowAngularClient", policy =>
+    {
+        policy.WithOrigins("http://localhost:4200")
+         .AllowAnyMethod()
+         .AllowAnyHeader();
+    });
+});
+
 var app = builder.Build();
 
 
@@ -32,6 +42,9 @@ if (app.Environment.IsDevelopment())
 app.UseHttpsRedirection();
 
 app.MapControllers();
+
+app.UseCors("AllowAngularClient");
+app.UseAuthorization();
 
 app.Run();
 

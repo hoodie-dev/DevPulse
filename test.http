@@ -1,0 +1,8 @@
+POST http://localhost:5165/api/projects
+Content-Type: application/json
+
+{
+  "name": "DevPulse Alpha",
+  "description": "Our core project management tracker platform",
+  "code": "DEVP"
+}
