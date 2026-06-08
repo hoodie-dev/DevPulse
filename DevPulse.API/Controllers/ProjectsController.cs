@@ -30,4 +30,17 @@ public class ProjectsController : ControllerBase
 
         return Ok(projectId);
     }
+
+    [HttpDelete]
+    public async Task<IActionResult> DeleteProject(Guid Id)
+    {
+        bool isDeleted = await _mediator.Send(new DeleteProjectCommand(Id));
+
+        if(!isDeleted)
+        {
+            return NotFound(new {message = "Project not found in database."});
+        }
+
+        return NoContent();
+    }
 }
