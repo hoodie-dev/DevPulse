@@ -1,6 +1,8 @@
 import { Routes } from '@angular/router';
 import { ProjectCreate } from './components/project-create/project-create';
+import { ProjectDashboard } from './components/project-dashboard/project-dashboard';
+
 export const routes: Routes = [
-    {path: '', redirectTo: 'projects/create', pathMatch: 'full'},
+    {path: '', component: ProjectDashboard},
     {path: 'projects/create', component: ProjectCreate}
 ];

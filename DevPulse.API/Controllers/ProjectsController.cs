@@ -1,4 +1,5 @@
 using DevPulse.Application.Projects.Commands;
+using DevPulse.Application.Projects.Queries;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
@@ -13,6 +14,13 @@ public class ProjectsController : ControllerBase
     public ProjectsController(ISender mediator)
     {
         _mediator = mediator;
+    }
+
+    [HttpGet]
+    public async Task<IActionResult> GetProjects()
+    {
+        var projects = await _mediator.Send(new GetProjectsQuery());
+        return Ok(projects);
     }
 
     [HttpPost]
