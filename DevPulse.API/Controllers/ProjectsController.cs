@@ -31,7 +31,7 @@ public class ProjectsController : ControllerBase
         return Ok(projectId);
     }
 
-    [HttpDelete]
+    [HttpDelete("{Id}")]
     public async Task<IActionResult> DeleteProject(Guid Id)
     {
         bool isDeleted = await _mediator.Send(new DeleteProjectCommand(Id));

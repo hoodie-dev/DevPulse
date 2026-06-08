@@ -30,4 +30,19 @@ export class ProjectDashboard implements OnInit {
       },
     });
   }
+
+  onDeleteProject(id: string): void{
+    if(confirm('Are you sure you want to permanently delete this project?')){
+      this.projectService.deleteProject(id).subscribe({
+        next: ()=>{
+          console.log('Project dropped from server successfully.');
+          this.projects.update(allProjects => allProjects.filter(p =>p.id !== id));
+        },
+        error: (err) => {
+          console.error('Deletion failed: ', err);
+          alert('Could not delete this project. Please check backend API logs.')
+        }
+      });
+    }
+  }
 }
