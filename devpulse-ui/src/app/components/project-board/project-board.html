@@ -2,12 +2,14 @@
   
   <div class="mb-8">
     <h1 class="text-3xl font-bold text-slate-900 tracking-tight">Project Workspace</h1>
-    <p class="text-sm text-slate-500 mt-1">Project Identifier: <span class="font-mono bg-slate-100 px-1 py-0.5 rounded text-xs text-slate-700">{{ projectId() }}</span></p>
+    <p class="text-sm text-slate-500 mt-1">
+      Project Identifier: <span class="font-mono bg-slate-100 px-1 py-0.5 rounded text-xs text-slate-700">{{ projectId() }}</span>
+    </p>
   </div>
 
-  <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+  <div class="grid grid-cols-1 lg:grid-cols-4 gap-8 items-start">
     
-    <div class="bg-white p-6 rounded-xl border border-slate-200 shadow-sm h-fit">
+    <div class="bg-white p-6 rounded-xl border border-slate-200 shadow-sm sticky top-6">
       <h2 class="text-lg font-bold text-slate-900 mb-4">Create New Issue</h2>
       
       <form (ngSubmit)="onCreateIssue()" #issueForm="ngForm">
@@ -40,29 +42,82 @@
       </form>
     </div>
 
-    <div class="lg:col-span-2 grid grid-cols-1 md:grid-cols-3 gap-4">
+    <div class="lg:col-span-3 grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-4 alignment-fix-wrapper">
       
-      <div class="bg-slate-50 p-4 rounded-xl border border-slate-200/60 min-h-[500px]">
-        <div class="flex justify-between items-center mb-4">
+      <div class="bg-slate-50 p-4 rounded-xl border border-slate-200/60 flex flex-col min-w-[200px] h-[600px]">
+        <div class="flex justify-between items-center mb-4 shrink-0">
           <span class="text-sm font-bold text-slate-700 tracking-wide uppercase">📋 To Do</span>
-          <span class="bg-slate-200 text-slate-700 text-xs px-2 py-0.5 rounded-full font-bold">0</span>
+          <span class="bg-slate-200 text-slate-700 text-xs px-2 py-0.5 rounded-full font-bold">{{ todoIssues().length }}</span>
         </div>
-        <div class="border-2 border-dashed border-slate-200 rounded-lg p-6 text-center text-xs text-slate-400 font-medium">
-          No active issues in backlog
+        
+        <div class="space-y-3 flex-1 overflow-y-auto pr-1">
+          <div *ngFor="let issue of todoIssues()" class="bg-white p-4 rounded-lg border border-slate-200 shadow-sm hover:shadow-md transition">
+            <span class="text-[10px] font-semibold px-2 py-0.5 rounded border block w-fit mb-2" [ngClass]="getPriorityLabel(issue.priority).css">
+              {{ getPriorityLabel(issue.priority).text }}
+            </span>
+            <h3 class="text-sm font-semibold text-slate-900 mb-1 leading-tight">{{ issue.title }}</h3>
+            <p class="text-xs text-slate-500 line-clamp-2">{{ issue.description }}</p>
+          </div>
+          <div *ngIf="todoIssues().length === 0" class="border-2 border-dashed border-slate-200 rounded-lg p-4 text-center text-xs text-slate-400 font-medium">
+            No items in backlog
+          </div>
         </div>
       </div>
 
-      <div class="bg-slate-50 p-4 rounded-xl border border-slate-200/60 min-h-[500px]">
-        <div class="flex justify-between items-center mb-4">
+      <div class="bg-slate-50 p-4 rounded-xl border border-slate-200/60 flex flex-col min-w-[200px] h-[600px]">
+        <div class="flex justify-between items-center mb-4 shrink-0">
           <span class="text-sm font-bold text-blue-700 tracking-wide uppercase">⚡ In Progress</span>
-          <span class="bg-blue-100 text-blue-700 text-xs px-2 py-0.5 rounded-full font-bold">0</span>
+          <span class="bg-blue-100 text-blue-700 text-xs px-2 py-0.5 rounded-full font-bold">{{ inProgressIssues().length }}</span>
+        </div>
+
+        <div class="space-y-3 flex-1 overflow-y-auto pr-1">
+          <div *ngFor="let issue of inProgressIssues()" class="bg-white p-4 rounded-lg border border-slate-200 shadow-sm hover:shadow-md transition">
+            <span class="text-[10px] font-semibold px-2 py-0.5 rounded border block w-fit mb-2" [ngClass]="getPriorityLabel(issue.priority).css">
+              {{ getPriorityLabel(issue.priority).text }}
+            </span>
+            <h3 class="text-sm font-semibold text-slate-900 mb-1 leading-tight">{{ issue.title }}</h3>
+            <p class="text-xs text-slate-500 line-clamp-2">{{ issue.description }}</p>
+          </div>
+          <div *ngIf="inProgressIssues().length === 0" class="border-2 border-dashed border-slate-200/40 rounded-lg p-4 text-center text-xs text-slate-400/70 font-medium">
+            No active tasks
+          </div>
         </div>
       </div>
 
-      <div class="bg-slate-50 p-4 rounded-xl border border-slate-200/60 min-h-[500px]">
-        <div class="flex justify-between items-center mb-4">
+      <div class="bg-slate-50 p-4 rounded-xl border border-slate-200/60 flex flex-col min-w-[200px] h-[600px]">
+        <div class="flex justify-between items-center mb-4 shrink-0">
+          <span class="text-sm font-bold text-purple-700 tracking-wide uppercase">👀 In Review</span>
+          <span class="bg-purple-100 text-purple-700 text-xs px-2 py-0.5 rounded-full font-bold">{{ inReviewIssues().length }}</span>
+        </div>
+
+        <div class="space-y-3 flex-1 overflow-y-auto pr-1">
+          <div *ngFor="let issue of inReviewIssues()" class="bg-white p-4 rounded-lg border border-slate-200 shadow-sm hover:shadow-md transition">
+            <span class="text-[10px] font-semibold px-2 py-0.5 rounded border block w-fit mb-2" [ngClass]="getPriorityLabel(issue.priority).css">
+              {{ getPriorityLabel(issue.priority).text }}
+            </span>
+            <h3 class="text-sm font-semibold text-slate-900 mb-1 leading-tight">{{ issue.title }}</h3>
+            <p class="text-xs text-slate-500 line-clamp-2">{{ issue.description }}</p>
+          </div>
+          <div *ngIf="inReviewIssues().length === 0" class="border-2 border-dashed border-slate-200/40 rounded-lg p-4 text-center text-xs text-slate-400/70 font-medium">
+            No items in review
+          </div>
+        </div>
+      </div>
+
+      <div class="bg-slate-50 p-4 rounded-xl border border-slate-200/60 flex flex-col min-w-[200px] h-[600px]">
+        <div class="flex justify-between items-center mb-4 shrink-0">
           <span class="text-sm font-bold text-emerald-700 tracking-wide uppercase">✅ Done</span>
-          <span class="bg-emerald-100 text-emerald-700 text-xs px-2 py-0.5 rounded-full font-bold">0</span>
+          <span class="bg-emerald-100 text-emerald-700 text-xs px-2 py-0.5 rounded-full font-bold">{{ doneIssues().length }}</span>
+        </div>
+
+        <div class="space-y-3 flex-1 overflow-y-auto pr-1">
+          <div *ngFor="let issue of doneIssues()" class="bg-white p-4 rounded-lg border border-slate-200 shadow-sm hover:shadow-md border-l-4 border-l-emerald-500 transition">
+            <h3 class="text-sm font-semibold text-slate-900 mb-1 leading-tight line-through opacity-60">{{ issue.title }}</h3>
+            <p class="text-xs text-slate-400 line-clamp-2">{{ issue.description }}</p>
+          </div>
+          <div *ngIf="doneIssues().length === 0" class="border-2 border-dashed border-slate-200/40 rounded-lg p-4 text-center text-xs text-slate-400/70 font-medium">
+            No completed tasks
+          </div>
         </div>
       </div>
 

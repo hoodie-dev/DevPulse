@@ -26,4 +26,8 @@ export class Issue {
   createIssue(issueData: CreateIssueRequest): Observable<string>{
     return this.http.post<string>(this.apiUrl, issueData);
   }
+
+  getIssuesByProject(projectId: string): Observable<any[]>{
+    return this.http.get<any[]>(`${this.apiUrl}/project/${projectId}`);
+  }
 }
