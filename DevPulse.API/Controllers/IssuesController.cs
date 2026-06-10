@@ -1,4 +1,5 @@
 using DevPulse.Application.Issues.Commands;
+using DevPulse.Application.Issues.Queries;
 using MediatR;
 using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
@@ -21,5 +22,12 @@ public class IssuesController : ControllerBase
     {
         Guid issueId = await _mediator.Send(command);
         return Ok(issueId);
+    }
+
+    [HttpGet("project/{projectId}")]
+    public async Task<IActionResult> GetIssuesByProject(Guid projectId)
+    {
+        var issues = await _mediator.Send(new GetIssuesByProjectIdQuery(projectId));
+        return Ok(issues);
     }
  }
