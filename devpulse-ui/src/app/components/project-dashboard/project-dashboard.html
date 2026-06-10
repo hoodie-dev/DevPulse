@@ -51,9 +51,10 @@
               </svg>
             </button>
 
-            <button class="text-xs font-semibold text-blue-600 hover:text-blue-700 transition">
-              View Analytics →
-            </button>
+            <a [routerLink]="['/projects', project.id, 'board']"
+              class="text-xs font-semibold text-blue-600 hover:text-blue-700 transition cursor-pointer">
+              View Workspace →
+            </a>
             
           </div>
         </div>

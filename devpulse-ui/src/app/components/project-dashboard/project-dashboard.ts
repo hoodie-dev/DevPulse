@@ -1,10 +1,11 @@
 import { Component, OnInit, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { RouterLink } from '@angular/router';
 import { Project } from '../../services/project';
 
 @Component({
   selector: 'app-project-dashboard',
-  imports: [CommonModule],
+  imports: [CommonModule, RouterLink],
   templateUrl: './project-dashboard.html',
   styleUrl: './project-dashboard.scss',
 })
