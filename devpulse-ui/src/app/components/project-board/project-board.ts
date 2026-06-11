@@ -83,4 +83,25 @@ export class ProjectBoard implements OnInit{
     if (priority === 1 || priority === 'Medium') return { text: 'Medium', css: 'bg-amber-50 text-amber-700 border-amber-100' };
     return { text: 'Low', css: 'bg-slate-50 text-slate-600 border-slate-100' };
   }
+
+  moveIssue(issueId: string, currentStatus: number, direction: 'forward' | 'backward'): void{
+    let nextStatus = currentStatus;
+
+    if(direction === 'forward' && currentStatus < 4){
+      nextStatus = currentStatus + 1
+    } else if (direction === 'backward' && currentStatus > 1){
+      nextStatus = currentStatus - 1;
+    }
+
+    if(nextStatus === currentStatus) return;
+
+    this.issueService.updateIssueStatus(issueId, nextStatus).subscribe({
+      next: () => {
+        this.loadWorkspaceIssues();
+      }, 
+      error: (err) => {
+        console.error('Failed to patch task location: ', err);
+      }
+    })
+  }
 }

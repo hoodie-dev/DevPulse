@@ -30,4 +30,8 @@ export class Issue {
   getIssuesByProject(projectId: string): Observable<any[]>{
     return this.http.get<any[]>(`${this.apiUrl}/project/${projectId}`);
   }
+
+  updateIssueStatus(issueId: string, newStatus: IssuePriority): Observable<void>{
+    return this.http.patch<void>(`${this.apiUrl}/${issueId}/status`, {status: newStatus});
+  }
 }

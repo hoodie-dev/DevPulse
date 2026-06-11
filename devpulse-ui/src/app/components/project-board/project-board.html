@@ -57,6 +57,26 @@
             </span>
             <h3 class="text-sm font-semibold text-slate-900 mb-1 leading-tight">{{ issue.title }}</h3>
             <p class="text-xs text-slate-500 line-clamp-2">{{ issue.description }}</p>
+            <div class="mt-3 pt-2 border-t border-slate-100 flex justify-end">
+              <button (click)="moveIssue(issue.id, 1, 'forward')" 
+                      class="text-xs bg-slate-100 hover:bg-blue-50 text-slate-600 hover:text-blue-600 font-medium px-2 py-1 rounded transition">
+                Start Work →
+              </button>
+            </div>
+
+            <div class="mt-3 pt-2 border-t border-slate-100 flex justify-between">
+              <button (click)="moveIssue(issue.id, 2, 'backward')" class="text-xs text-slate-400 hover:text-slate-600">← Back</button>
+              <button (click)="moveIssue(issue.id, 2, 'forward')" class="text-xs bg-blue-50 hover:bg-purple-50 text-blue-600 hover:text-purple-600 font-medium px-2 py-1 rounded transition">
+                Submit Review →
+              </button>
+            </div>
+
+            <div class="mt-3 pt-2 border-t border-slate-100 flex justify-between">
+              <button (click)="moveIssue(issue.id, 3, 'backward')" class="text-xs text-slate-400 hover:text-slate-600">← Reject</button>
+              <button (click)="moveIssue(issue.id, 3, 'forward')" class="text-xs bg-purple-50 hover:bg-emerald-50 text-purple-600 hover:text-emerald-600 font-medium px-2 py-1 rounded transition">
+                Approve & Close ✓
+              </button>
+            </div>
           </div>
           <div *ngIf="todoIssues().length === 0" class="border-2 border-dashed border-slate-200 rounded-lg p-4 text-center text-xs text-slate-400 font-medium">
             No items in backlog
@@ -77,6 +97,26 @@
             </span>
             <h3 class="text-sm font-semibold text-slate-900 mb-1 leading-tight">{{ issue.title }}</h3>
             <p class="text-xs text-slate-500 line-clamp-2">{{ issue.description }}</p>
+            <div class="mt-3 pt-2 border-t border-slate-100 flex justify-end">
+              <button (click)="moveIssue(issue.id, 1, 'forward')" 
+                      class="text-xs bg-slate-100 hover:bg-blue-50 text-slate-600 hover:text-blue-600 font-medium px-2 py-1 rounded transition">
+                Start Work →
+              </button>
+            </div>
+
+            <div class="mt-3 pt-2 border-t border-slate-100 flex justify-between">
+              <button (click)="moveIssue(issue.id, 2, 'backward')" class="text-xs text-slate-400 hover:text-slate-600">← Back</button>
+              <button (click)="moveIssue(issue.id, 2, 'forward')" class="text-xs bg-blue-50 hover:bg-purple-50 text-blue-600 hover:text-purple-600 font-medium px-2 py-1 rounded transition">
+                Submit Review →
+              </button>
+            </div>
+
+            <div class="mt-3 pt-2 border-t border-slate-100 flex justify-between">
+              <button (click)="moveIssue(issue.id, 3, 'backward')" class="text-xs text-slate-400 hover:text-slate-600">← Reject</button>
+              <button (click)="moveIssue(issue.id, 3, 'forward')" class="text-xs bg-purple-50 hover:bg-emerald-50 text-purple-600 hover:text-emerald-600 font-medium px-2 py-1 rounded transition">
+                Approve & Close ✓
+              </button>
+            </div>
           </div>
           <div *ngIf="inProgressIssues().length === 0" class="border-2 border-dashed border-slate-200/40 rounded-lg p-4 text-center text-xs text-slate-400/70 font-medium">
             No active tasks
@@ -97,6 +137,27 @@
             </span>
             <h3 class="text-sm font-semibold text-slate-900 mb-1 leading-tight">{{ issue.title }}</h3>
             <p class="text-xs text-slate-500 line-clamp-2">{{ issue.description }}</p>
+
+            <div class="mt-3 pt-2 border-t border-slate-100 flex justify-end">
+              <button (click)="moveIssue(issue.id, 1, 'forward')" 
+                      class="text-xs bg-slate-100 hover:bg-blue-50 text-slate-600 hover:text-blue-600 font-medium px-2 py-1 rounded transition">
+                Start Work →
+              </button>
+            </div>
+
+            <div class="mt-3 pt-2 border-t border-slate-100 flex justify-between">
+              <button (click)="moveIssue(issue.id, 2, 'backward')" class="text-xs text-slate-400 hover:text-slate-600">← Back</button>
+              <button (click)="moveIssue(issue.id, 2, 'forward')" class="text-xs bg-blue-50 hover:bg-purple-50 text-blue-600 hover:text-purple-600 font-medium px-2 py-1 rounded transition">
+                Submit Review →
+              </button>
+            </div>
+
+            <div class="mt-3 pt-2 border-t border-slate-100 flex justify-between">
+              <button (click)="moveIssue(issue.id, 3, 'backward')" class="text-xs text-slate-400 hover:text-slate-600">← Reject</button>
+              <button (click)="moveIssue(issue.id, 3, 'forward')" class="text-xs bg-purple-50 hover:bg-emerald-50 text-purple-600 hover:text-emerald-600 font-medium px-2 py-1 rounded transition">
+                Approve & Close ✓
+              </button>
+            </div>
           </div>
           <div *ngIf="inReviewIssues().length === 0" class="border-2 border-dashed border-slate-200/40 rounded-lg p-4 text-center text-xs text-slate-400/70 font-medium">
             No items in review

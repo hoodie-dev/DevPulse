@@ -30,4 +30,22 @@ public class IssuesController : ControllerBase
         var issues = await _mediator.Send(new GetIssuesByProjectIdQuery(projectId));
         return Ok(issues);
     }
+
+    [HttpPatch("{id}/status")]
+    public async Task<IActionResult> UpdateStatus(Guid id, [FromBody] UpdateIssueStatusDto dto)
+    {
+        var result = await _mediator.Send(new UpdateIssueStatusCommand(id, dto.Status));
+
+        if (!result)
+        {
+            return NotFound(new{message = "Target issue could not be resolved."});
+        }
+
+        return NoContent(); // Success 204 - standard for patches
+    }
  }
+
+ public class UpdateIssueStatusDto
+{
+    public DevPulse.Domain.Enums.IssueStatus Status{get;set;}
+}
