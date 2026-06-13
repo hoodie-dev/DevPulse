@@ -3,6 +3,7 @@ import { ActivatedRoute } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { Issue, IssuePriority } from '../../services/issue';
+import { Project } from '../../services/project';
 
 @Component({
   selector: 'app-project-board',
@@ -12,6 +13,7 @@ import { Issue, IssuePriority } from '../../services/issue';
 })
 export class ProjectBoard implements OnInit{
   projectId = signal<string | null>(null);
+  projectData = signal<any>(null);
 
   todoIssues = signal<any[]>([]);
   inProgressIssues = signal<any[]>([]);
@@ -26,7 +28,8 @@ export class ProjectBoard implements OnInit{
 
   constructor(
     private route: ActivatedRoute,
-    private issueService: Issue
+    private issueService: Issue,
+    private projectService: Project
   ){}
 
   ngOnInit(): void {
@@ -34,6 +37,7 @@ export class ProjectBoard implements OnInit{
     this.projectId.set(idFromUrl);
 
     if(this.projectId()){
+      this.loadProjectDetails();
       this.loadWorkspaceIssues();
     }
   }
@@ -50,6 +54,16 @@ export class ProjectBoard implements OnInit{
         console.error('Failed to fill Kanban column feeds: ', err);
         
       }
+    });
+  }
+
+  loadProjectDetails(): void{
+    this.projectService.getProjectById(this.projectId()!).subscribe({
+      next: (data) => {
+        console.log("Data arrived successfully from .NET:", data);
+        this.projectData.set(data)
+      },
+      error: (err) => console.error("Could not load project context ", err)
     });
   }
 

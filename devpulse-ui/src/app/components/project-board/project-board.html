@@ -1,10 +1,26 @@
 <div class="max-w-7xl mx-auto p-6">
   
-  <div class="mb-8">
-    <h1 class="text-3xl font-bold text-slate-900 tracking-tight">Project Workspace</h1>
-    <p class="text-sm text-slate-500 mt-1">
-      Project Identifier: <span class="font-mono bg-slate-100 px-1 py-0.5 rounded text-xs text-slate-700">{{ projectId() }}</span>
-    </p>
+  <!-- Replace the old Header Title Section with this: -->
+  <div class="mb-8 flex justify-between items-end">
+    <div>
+      <nav class="flex text-xs text-slate-400 mb-2 font-medium uppercase tracking-widest">
+        <a routerLink="/" class="hover:text-blue-600 transition">Dashboard</a>
+        <span class="mx-2">/</span>
+        <span class="text-slate-600">Workspace</span>
+      </nav>
+      
+      <h1 class="text-4xl font-extrabold text-slate-900 tracking-tight">
+        {{ projectData()?.name || 'Loading Project...' }}
+      </h1>
+      <p class="text-slate-500 mt-2 max-w-2xl italic">
+        {{ projectData()?.description || 'Fetching project details from the secure server...' }}
+      </p>
+    </div>
+
+    <div class="hidden md:block text-right">
+      <span class="text-[10px] text-slate-400 uppercase font-bold">System ID</span>
+      <p class="font-mono text-[10px] text-slate-400">{{ projectId() }}</p>
+    </div>
   </div>
 
   <div class="grid grid-cols-1 lg:grid-cols-4 gap-8 items-start">

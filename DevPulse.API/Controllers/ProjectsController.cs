@@ -23,6 +23,13 @@ public class ProjectsController : ControllerBase
         return Ok(projects);
     }
 
+    [HttpGet("{id}")]
+    public async Task<IActionResult> GetProject(Guid id)
+    {
+        var project = await _mediator.Send(new GetProjectByIdQuery(id));
+        return project != null ? Ok(project) : NotFound();
+    }
+
     [HttpPost]
     public async Task<IActionResult> CreateProject([FromBody] CreateProjectCommand command)
     {

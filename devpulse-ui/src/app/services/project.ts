@@ -18,6 +18,10 @@ export class Project {
     return this.http.get<any[]>(this.apiUrl);
   }
 
+  getProjectById(id: string): Observable<any> {
+    return this.http.get<any>(`${this.apiUrl}/${id}`);
+  }
+
   deleteProject(id: string): Observable<void>{
     return this.http.delete<void>(`${this.apiUrl}/${id}`);
   }
