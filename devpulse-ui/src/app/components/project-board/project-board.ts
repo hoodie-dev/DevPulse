@@ -92,6 +92,20 @@ export class ProjectBoard implements OnInit{
     });
   }
 
+  onDeleteIssue(issueId: string): void{
+    if(confirm('Are you sure you want to permanently delete this issue?')){
+      this.issueService.deleteIssue
+      (issueId).subscribe({
+        next: () => {
+          this.loadWorkspaceIssues();
+        },
+        error: (err) => {
+          console.error('Failed to execute backend deletion command: ', err); 
+        }
+      });
+    }
+  }
+
   getPriorityLabel(priority: number | string): {text:string; css: string}{
     if (priority === 2 || priority === 'High') return { text: 'High', css: 'bg-red-50 text-red-700 border-red-100' };
     if (priority === 1 || priority === 'Medium') return { text: 'Medium', css: 'bg-amber-50 text-amber-700 border-amber-100' };

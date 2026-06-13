@@ -43,6 +43,19 @@ public class IssuesController : ControllerBase
 
         return NoContent(); // Success 204 - standard for patches
     }
+
+    [HttpDelete("{id}")]
+    public async Task<IActionResult> DeleteIssue(Guid id)
+    {
+        var success = await _mediator.Send(new DeleteIssueCommand(id));
+
+        if(!success)
+        {
+            return NotFound(new{message = "The issue could not be found or has already been removed."});
+        }
+
+        return NoContent();
+    }
  }
 
  public class UpdateIssueStatusDto

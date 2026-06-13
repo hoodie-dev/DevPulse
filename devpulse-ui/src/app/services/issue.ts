@@ -34,4 +34,8 @@ export class Issue {
   updateIssueStatus(issueId: string, newStatus: IssuePriority): Observable<void>{
     return this.http.patch<void>(`${this.apiUrl}/${issueId}/status`, {status: newStatus});
   }
+
+  deleteIssue(issueId: string): Observable<void>{
+    return this.http.delete<void>(`${this.apiUrl}/${issueId}`);
+  }
 }
