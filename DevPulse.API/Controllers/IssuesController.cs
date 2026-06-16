@@ -56,7 +56,17 @@ public class IssuesController : ControllerBase
 
         return NoContent();
     }
+
+    [HttpPost("{id}/comments")]
+    public async Task<ActionResult<CommentDto>> AddComment(Guid id, [FromBody] CreateCommentRequest request)
+    {
+        var result = await _mediator.Send(new AddCommentCommand(id, request.Text, request.Author));
+
+        return Ok(result);
+    }
  }
+
+ public record CreateCommentRequest(string Text, string Author);
 
  public class UpdateIssueStatusDto
 {

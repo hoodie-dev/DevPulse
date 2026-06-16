@@ -9,5 +9,7 @@ public interface IDevPulseDbContext
     DbSet<Sprint> Sprints {get;set;}
     DbSet<Issue> Issues {get;set;}
 
+    DbSet<Comment> Comments {get;set;}
+
     Task<int> SaveChangesAsync(CancellationToken cancellationToken);
 }

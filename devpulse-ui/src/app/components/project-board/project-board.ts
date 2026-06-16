@@ -20,6 +20,9 @@ export class ProjectBoard implements OnInit{
   inReviewIssues = signal<any[]>([]);
   doneIssues = signal<any[]>([]);
 
+  selectedIssue = signal<any | null>(null);
+  commentText = signal<string>('');
+
   issueTitle = '';
   issueDescription = '';
   selectedPriority = IssuePriority.Medium;
@@ -131,5 +134,32 @@ export class ProjectBoard implements OnInit{
         console.error('Failed to patch task location: ', err);
       }
     })
+  }
+
+  submitComment(): void {
+    const currentIssue = this.selectedIssue();
+    const text = this.commentText().trim();
+
+    if(!currentIssue || !text) return;
+
+    this.issueService.addComment(currentIssue.id, text, 'Team Member').subscribe({
+      next: (newComment) => {
+        if(!currentIssue.comments){
+          currentIssue.comments = [];
+        }
+
+        currentIssue.comments.push(newComment);
+        this.commentText.set('');
+      },
+      error: (err) => console.error('Could not save comment:', err)
+    });
+  }
+
+  openIssueDetail(issue: any): void {
+    this.selectedIssue.set(issue);
+  }
+  closeIssueDetail(): void {
+    this.selectedIssue.set(null);
+    this.commentText.set('');
   }
 }

@@ -38,4 +38,8 @@ export class Issue {
   deleteIssue(issueId: string): Observable<void>{
     return this.http.delete<void>(`${this.apiUrl}/${issueId}`);
   }
+
+  addComment(issueId: string, text: string, author: string): Observable<any> {
+    return this.http.post<any>(`${this.apiUrl}/${issueId}/comments`, {text, author});
+  }
 }

@@ -1,6 +1,5 @@
 <div class="max-w-7xl mx-auto p-6">
   
-  <!-- Replace the old Header Title Section with this: -->
   <div class="mb-8 flex justify-between items-end">
     <div>
       <nav class="flex text-xs text-slate-400 mb-2 font-medium uppercase tracking-widest">
@@ -67,36 +66,24 @@
         </div>
         
         <div class="space-y-3 flex-1 overflow-y-auto pr-1">
-          <div *ngFor="let issue of todoIssues()" class="bg-white p-4 rounded-lg border border-slate-200 shadow-sm hover:shadow-md transition">
-            <span class="text-[10px] font-semibold px-2 py-0.5 rounded border block w-fit mb-2" [ngClass]="getPriorityLabel(issue.priority).css">
-              {{ getPriorityLabel(issue.priority).text }}
-            </span>
-            <!-- The Delete Trigger Button -->
-            <button (click)="onDeleteIssue(issue.id)" 
-                    class="text-slate-300 hover:text-red-500 text-xs font-medium p-1 rounded transition duration-150" 
-                    title="Delete Issue">
-              ✕
-            </button>
+          <div *ngFor="let issue of todoIssues()" (click)="openIssueDetail(issue)" 
+               class="bg-white p-4 rounded-lg border border-slate-200 shadow-sm hover:shadow-md transition cursor-pointer">
+            <div class="flex justify-between items-start mb-2">
+              <span class="text-[10px] font-semibold px-2 py-0.5 rounded border block w-fit" [ngClass]="getPriorityLabel(issue.priority).css">
+                {{ getPriorityLabel(issue.priority).text }}
+              </span>
+              <button (click)="onDeleteIssue(issue.id); $event.stopPropagation()" 
+                      class="text-slate-300 hover:text-red-500 text-xs font-medium p-1 rounded transition duration-150" 
+                      title="Delete Issue">
+                ✕
+              </button>
+            </div>
             <h3 class="text-sm font-semibold text-slate-900 mb-1 leading-tight">{{ issue.title }}</h3>
             <p class="text-xs text-slate-500 line-clamp-2">{{ issue.description }}</p>
             <div class="mt-3 pt-2 border-t border-slate-100 flex justify-end">
-              <button (click)="moveIssue(issue.id, 1, 'forward')" 
+              <button (click)="moveIssue(issue.id, 1, 'forward'); $event.stopPropagation()" 
                       class="text-xs bg-slate-100 hover:bg-blue-50 text-slate-600 hover:text-blue-600 font-medium px-2 py-1 rounded transition">
                 Start Work →
-              </button>
-            </div>
-
-            <div class="mt-3 pt-2 border-t border-slate-100 flex justify-between">
-              <button (click)="moveIssue(issue.id, 2, 'backward')" class="text-xs text-slate-400 hover:text-slate-600">← Back</button>
-              <button (click)="moveIssue(issue.id, 2, 'forward')" class="text-xs bg-blue-50 hover:bg-purple-50 text-blue-600 hover:text-purple-600 font-medium px-2 py-1 rounded transition">
-                Submit Review →
-              </button>
-            </div>
-
-            <div class="mt-3 pt-2 border-t border-slate-100 flex justify-between">
-              <button (click)="moveIssue(issue.id, 3, 'backward')" class="text-xs text-slate-400 hover:text-slate-600">← Reject</button>
-              <button (click)="moveIssue(issue.id, 3, 'forward')" class="text-xs bg-purple-50 hover:bg-emerald-50 text-purple-600 hover:text-emerald-600 font-medium px-2 py-1 rounded transition">
-                Approve & Close ✓
               </button>
             </div>
           </div>
@@ -113,36 +100,24 @@
         </div>
 
         <div class="space-y-3 flex-1 overflow-y-auto pr-1">
-          <div *ngFor="let issue of inProgressIssues()" class="bg-white p-4 rounded-lg border border-slate-200 shadow-sm hover:shadow-md transition">
-            <span class="text-[10px] font-semibold px-2 py-0.5 rounded border block w-fit mb-2" [ngClass]="getPriorityLabel(issue.priority).css">
-              {{ getPriorityLabel(issue.priority).text }}
-            </span>
-            <!-- The Delete Trigger Button -->
-            <button (click)="onDeleteIssue(issue.id)" 
-                    class="text-slate-300 hover:text-red-500 text-xs font-medium p-1 rounded transition duration-150" 
-                    title="Delete Issue">
-              ✕
-            </button>
+          <div *ngFor="let issue of inProgressIssues()" (click)="openIssueDetail(issue)" 
+               class="bg-white p-4 rounded-lg border border-slate-200 shadow-sm hover:shadow-md transition cursor-pointer">
+            <div class="flex justify-between items-start mb-2">
+              <span class="text-[10px] font-semibold px-2 py-0.5 rounded border block w-fit" [ngClass]="getPriorityLabel(issue.priority).css">
+                {{ getPriorityLabel(issue.priority).text }}
+              </span>
+              <button (click)="onDeleteIssue(issue.id); $event.stopPropagation()" 
+                      class="text-slate-300 hover:text-red-500 text-xs font-medium p-1 rounded transition duration-150" 
+                      title="Delete Issue">
+                ✕
+              </button>
+            </div>
             <h3 class="text-sm font-semibold text-slate-900 mb-1 leading-tight">{{ issue.title }}</h3>
             <p class="text-xs text-slate-500 line-clamp-2">{{ issue.description }}</p>
-            <div class="mt-3 pt-2 border-t border-slate-100 flex justify-end">
-              <button (click)="moveIssue(issue.id, 1, 'forward')" 
-                      class="text-xs bg-slate-100 hover:bg-blue-50 text-slate-600 hover:text-blue-600 font-medium px-2 py-1 rounded transition">
-                Start Work →
-              </button>
-            </div>
-
             <div class="mt-3 pt-2 border-t border-slate-100 flex justify-between">
-              <button (click)="moveIssue(issue.id, 2, 'backward')" class="text-xs text-slate-400 hover:text-slate-600">← Back</button>
-              <button (click)="moveIssue(issue.id, 2, 'forward')" class="text-xs bg-blue-50 hover:bg-purple-50 text-blue-600 hover:text-purple-600 font-medium px-2 py-1 rounded transition">
+              <button (click)="moveIssue(issue.id, 2, 'backward'); $event.stopPropagation()" class="text-xs text-slate-400 hover:text-slate-600">← Back</button>
+              <button (click)="moveIssue(issue.id, 2, 'forward'); $event.stopPropagation()" class="text-xs bg-blue-50 hover:bg-purple-50 text-blue-600 hover:text-purple-600 font-medium px-2 py-1 rounded transition">
                 Submit Review →
-              </button>
-            </div>
-
-            <div class="mt-3 pt-2 border-t border-slate-100 flex justify-between">
-              <button (click)="moveIssue(issue.id, 3, 'backward')" class="text-xs text-slate-400 hover:text-slate-600">← Reject</button>
-              <button (click)="moveIssue(issue.id, 3, 'forward')" class="text-xs bg-purple-50 hover:bg-emerald-50 text-purple-600 hover:text-emerald-600 font-medium px-2 py-1 rounded transition">
-                Approve & Close ✓
               </button>
             </div>
           </div>
@@ -159,36 +134,24 @@
         </div>
 
         <div class="space-y-3 flex-1 overflow-y-auto pr-1">
-          <div *ngFor="let issue of inReviewIssues()" class="bg-white p-4 rounded-lg border border-slate-200 shadow-sm hover:shadow-md transition">
-            <span class="text-[10px] font-semibold px-2 py-0.5 rounded border block w-fit mb-2" [ngClass]="getPriorityLabel(issue.priority).css">
-              {{ getPriorityLabel(issue.priority).text }}
-            </span>
-            <!-- The Delete Trigger Button -->
-            <button (click)="onDeleteIssue(issue.id)" 
-                    class="text-slate-300 hover:text-red-500 text-xs font-medium p-1 rounded transition duration-150" 
-                    title="Delete Issue">
-              ✕
-            </button>
+          <div *ngFor="let issue of inReviewIssues()" (click)="openIssueDetail(issue)" 
+               class="bg-white p-4 rounded-lg border border-slate-200 shadow-sm hover:shadow-md transition cursor-pointer">
+            <div class="flex justify-between items-start mb-2">
+              <span class="text-[10px] font-semibold px-2 py-0.5 rounded border block w-fit" [ngClass]="getPriorityLabel(issue.priority).css">
+                {{ getPriorityLabel(issue.priority).text }}
+              </span>
+              <button (click)="onDeleteIssue(issue.id); $event.stopPropagation()" 
+                      class="text-slate-300 hover:text-red-500 text-xs font-medium p-1 rounded transition duration-150" 
+                      title="Delete Issue">
+                ✕
+              </button>
+            </div>
             <h3 class="text-sm font-semibold text-slate-900 mb-1 leading-tight">{{ issue.title }}</h3>
             <p class="text-xs text-slate-500 line-clamp-2">{{ issue.description }}</p>
 
-            <div class="mt-3 pt-2 border-t border-slate-100 flex justify-end">
-              <button (click)="moveIssue(issue.id, 1, 'forward')" 
-                      class="text-xs bg-slate-100 hover:bg-blue-50 text-slate-600 hover:text-blue-600 font-medium px-2 py-1 rounded transition">
-                Start Work →
-              </button>
-            </div>
-
             <div class="mt-3 pt-2 border-t border-slate-100 flex justify-between">
-              <button (click)="moveIssue(issue.id, 2, 'backward')" class="text-xs text-slate-400 hover:text-slate-600">← Back</button>
-              <button (click)="moveIssue(issue.id, 2, 'forward')" class="text-xs bg-blue-50 hover:bg-purple-50 text-blue-600 hover:text-purple-600 font-medium px-2 py-1 rounded transition">
-                Submit Review →
-              </button>
-            </div>
-
-            <div class="mt-3 pt-2 border-t border-slate-100 flex justify-between">
-              <button (click)="moveIssue(issue.id, 3, 'backward')" class="text-xs text-slate-400 hover:text-slate-600">← Reject</button>
-              <button (click)="moveIssue(issue.id, 3, 'forward')" class="text-xs bg-purple-50 hover:bg-emerald-50 text-purple-600 hover:text-emerald-600 font-medium px-2 py-1 rounded transition">
+              <button (click)="moveIssue(issue.id, 3, 'backward'); $event.stopPropagation()" class="text-xs text-slate-400 hover:text-slate-600">← Reject</button>
+              <button (click)="moveIssue(issue.id, 3, 'forward'); $event.stopPropagation()" class="text-xs bg-purple-50 hover:bg-emerald-50 text-purple-600 hover:text-emerald-600 font-medium px-2 py-1 rounded transition">
                 Approve & Close ✓
               </button>
             </div>
@@ -206,7 +169,8 @@
         </div>
 
         <div class="space-y-3 flex-1 overflow-y-auto pr-1">
-          <div *ngFor="let issue of doneIssues()" class="bg-white p-4 rounded-lg border border-slate-200 shadow-sm hover:shadow-md border-l-4 border-l-emerald-500 transition">
+          <div *ngFor="let issue of doneIssues()" (click)="openIssueDetail(issue)" 
+               class="bg-white p-4 rounded-lg border border-slate-200 shadow-sm hover:shadow-md border-l-4 border-l-emerald-500 transition cursor-pointer">
             <h3 class="text-sm font-semibold text-slate-900 mb-1 leading-tight line-through opacity-60">{{ issue.title }}</h3>
             <p class="text-xs text-slate-400 line-clamp-2">{{ issue.description }}</p>
           </div>
@@ -217,6 +181,51 @@
       </div>
 
     </div>
-
   </div>
+
+  @if (selectedIssue()) {
+    <div class="fixed inset-y-0 right-0 w-96 bg-white shadow-xl border-l border-slate-200 p-6 z-50 flex flex-col justify-between">
+      <div>
+        <div class="flex justify-between items-start mb-4">
+          <h2 class="text-lg font-bold text-slate-800">{{ selectedIssue().title }}</h2>
+          <button (click)="closeIssueDetail()" class="text-slate-400 hover:text-slate-600 text-sm font-semibold">
+            ✕ Close
+          </button>
+        </div>
+        <p class="text-sm text-slate-600 mb-6">{{ selectedIssue().description || 'No description provided.' }}</p>
+      </div>
+
+      <div class="border-t border-slate-100 pt-4 flex-1 overflow-y-auto">
+        <h3 class="text-xs font-bold text-slate-400 uppercase tracking-wider mb-3">Activity & Comments</h3>
+
+        <div class="mb-4">
+          <textarea [value]="commentText()" 
+                    (input)="commentText.set($any($event.target).value)"
+                    placeholder="Type a response message..." 
+                    class="w-full border border-slate-200 rounded-lg p-2 text-xs focus:outline-none focus:border-blue-500" 
+                    rows="2"></textarea>
+          <div class="flex justify-end mt-1">
+            <button (click)="submitComment()" 
+                    class="bg-blue-600 text-white px-3 py-1 rounded text-xs font-medium hover:bg-blue-700 transition">
+              Comment
+            </button>
+          </div>
+        </div>
+
+        <div class="space-y-3">
+          @for (c of selectedIssue().comments; track c.id) {
+            <div class="bg-slate-50 p-2 rounded border border-slate-100 text-xs">
+              <div class="flex justify-between font-semibold text-slate-700 mb-1">
+                <span>{{ c.author }}</span>
+                <span class="text-slate-400 font-normal text-[10px]">{{ c.createdAt | date:'shortTime' }}</span>
+              </div>
+              <p class="text-slate-600">{{ c.text }}</p>
+            </div>
+          } @empty {
+            <p class="text-xs text-slate-400 italic text-center py-4">No conversations here yet.</p>
+          }
+        </div>
+      </div>
+    </div>
+  }
 </div>

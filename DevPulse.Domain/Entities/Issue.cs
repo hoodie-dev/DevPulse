@@ -21,4 +21,6 @@ public class Issue
     // audit tracking
     public DateTime CreatedAt {get;set;} = DateTime.UtcNow;
     public DateTime? UpdatedAt {get;set;}
+
+    public ICollection<Comment> Comments {get;set;} = new List<Comment>();
  }

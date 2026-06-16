@@ -8,7 +8,8 @@ public class DevPulseDbContext: DbContext, IDevPulseDbContext
 {
     public DevPulseDbContext(DbContextOptions<DevPulseDbContext> options) : base(options)
     {
-        
+        // The parent DbContext does all the initialization work using 'options'.
+        // Nothing extra needs to be configured manually inside here!
     }
 
     // DbSets represent tables
@@ -16,6 +17,7 @@ public class DevPulseDbContext: DbContext, IDevPulseDbContext
     public DbSet<Project> Projects{get;set;} = null!;
     public DbSet<Sprint> Sprints{get;set;} = null!;
     public DbSet<Issue> Issues{get;set;} = null!;
+    public DbSet<Comment> Comments {get;set;} = null!;
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -32,5 +34,6 @@ public class DevPulseDbContext: DbContext, IDevPulseDbContext
         modelBuilder.Entity<Sprint>().Property(s => s.Name).HasMaxLength(100).IsRequired();
         
         modelBuilder.Entity<Issue>().Property(i => i.Title).HasMaxLength(200).IsRequired();
+        modelBuilder.Entity<Comment>().Property(c=>c.Text).HasMaxLength(2000).IsRequired();
     }
 }
