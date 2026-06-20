@@ -1,10 +1,12 @@
 using DevPulse.Domain.Entities;
 using Microsoft.EntityFrameworkCore;
 using DevPulse.Application.Common.Interfaces;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using Microsoft.AspNetCore.Identity;
 
 namespace DevPulse.Infrastructure.Data;
 
-public class DevPulseDbContext: DbContext, IDevPulseDbContext
+public class DevPulseDbContext: IdentityDbContext<IdentityUser>, IDevPulseDbContext
 {
     public DevPulseDbContext(DbContextOptions<DevPulseDbContext> options) : base(options)
     {
@@ -24,9 +26,7 @@ public class DevPulseDbContext: DbContext, IDevPulseDbContext
         base.OnModelCreating(modelBuilder);
 
         // every project must have a unique short code (e.g. no two projects can be "DEVP")
-        modelBuilder.Entity<Project>()
-        .HasIndex(p=>p.Code)
-        .IsUnique();
+        modelBuilder.Entity<Project>().HasIndex(p=>p.Code).IsUnique();
 
         // configure strict max lengths for text columns to optimize database performance
         modelBuilder.Entity<Project>().Property(p => p.Name).HasMaxLength(100).IsRequired();
