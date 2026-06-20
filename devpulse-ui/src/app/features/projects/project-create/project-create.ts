@@ -1,6 +1,6 @@
 import { Component, signal } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { Project } from '../../services/project';
+import { Project } from '../../../services/project';
 
 @Component({
   selector: 'app-project-create',

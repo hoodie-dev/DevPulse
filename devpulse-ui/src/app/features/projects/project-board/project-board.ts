@@ -2,8 +2,8 @@ import { Component, OnInit, signal } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { Issue, IssuePriority } from '../../services/issue';
-import { Project } from '../../services/project';
+import { Issue, IssuePriority } from '../../../services/issue';
+import { Project } from '../../../services/project';
 
 @Component({
   selector: 'app-project-board',
