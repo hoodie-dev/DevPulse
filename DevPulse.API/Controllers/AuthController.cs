@@ -1,4 +1,5 @@
 using DevPulse.Application.Authentication.Commands.RegisterUser;
+using DevPulse.Application.Authentication.Queries.LoginUser;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
@@ -26,6 +27,20 @@ public class AuthController : ControllerBase
         catch (Exception ex)
         {
             return BadRequest(new { message = ex.Message });
+        }
+    }
+
+    [HttpPost("login")] 
+    public async Task<ActionResult<AuthResponse>> Login([FromBody] LoginUserQuery query)
+    {
+        try
+        {
+            var response = await _mediator.Send(query);
+            return Ok(response);
+        }
+        catch (Exception ex)
+        {
+            return Unauthorized(new { message = ex.Message });
         }
     }
 }
